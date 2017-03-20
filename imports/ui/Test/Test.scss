@@ -1,0 +1,31 @@
+.test-container{
+  width: 100%;
+  height: auto;
+  font-family: Roboto, sans-serif;
+  font-weight: 100;
+
+  .body-container{
+    @extend %flex-column-container;
+    justify-content: center;
+    align-items: center;
+  }
+  .logo{
+    @extend %flex-row-container;
+    justify-content: flex-end;
+    align-items: center;
+    cursor: pointer;
+    font-size: 20px;
+    padding: 20px;
+    .fa-sign-out{
+      padding-right: 10px;
+    }
+  }
+  h1, h3{
+    font-family: Roboto, sans-serif;
+    font-weight: 100;
+    @extend %flex-row-container;
+    justify-content: center;
+    align-items: center;
+  }
+
+}

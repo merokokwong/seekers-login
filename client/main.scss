@@ -1,0 +1,35 @@
+/* CSS declarations go here */
+@import "../imports/ui/LogIn/LogIn.scss";
+@import "../imports/ui/Test/Test.scss";
+
+html, body, #root, .app-container, .bodyContainer{
+  margin-top: 0;
+  margin-left: 0;
+  margin-right: 0;
+  margin-bottom: 0;
+  width: 100%;
+  height: 100%;
+}
+%flex-bare-container{
+  display: -ms-flexbox;
+  display: -webkit-box;
+  display: flex;
+  display: -webkit-flex;
+}
+%flex-row-container{
+ @extend %flex-bare-container;
+ -webkit-flex-direction: row;
+ -ms-flex-direction: row;
+ -webkit-box-orient: horizontal;
+ -webkit-box-direction: normal;
+ flex-direction: row;
+}
+
+%flex-column-container{
+  @extend %flex-bare-container;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  -webkit-box-orient:vertical;
+  -webkit-box-direction:normal;
+  flex-direction: column;
+}

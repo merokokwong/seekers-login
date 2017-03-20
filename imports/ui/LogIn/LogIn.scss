@@ -1,0 +1,45 @@
+.login-container{
+  width: 100%;
+  height: 100%;
+  background-image: url('/images/loginBg.jpg');
+  background-size: cover;
+  position: fixed;
+  font-family: Roboto, sans-serif;
+  .bg-overlay{
+    background-color: rgba(255, 255, 255, 0.5);
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    @extend %flex-column-container;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .login-form-container{
+    text-align: center;
+    min-width: 300px;
+    min-height: 150px;
+    background-color: rgba(255, 255, 255, 0.7);
+    padding: 30px;
+    h1{
+      font-family: Roboto, sans-serif;
+      font-weight: 100;
+      font-size: 24px;
+    }
+    .logo-container{
+
+    }
+    .fa {
+    font-size: 40px;
+    padding: 12px 12px 5px 5px;
+    cursor: pointer;
+    }
+    .fa-facebook-square {
+      color: #3b5998;
+    }
+    .fa-google {
+      color: #d34836;
+    }
+
+  }
+}
