@@ -12,19 +12,19 @@ Server side is with Meteor - taking into account security, sending data only to 
 
 ## Getting Started
 
-1. Install Meteor
+*1. Install Meteor*
 
 The project is written in Meteor, follow installation instruction here:
 
 https://www.meteor.com/install
 
-2. Clone this repository
+*2. Clone this repository*
 
-3. $ cd <the folder where you clone>
+*3. $ cd <the folder where you clone>*
 
-4. $ meteor npm install
+*4. $ meteor npm install*
 
-5. Run the project on port 5000 :
+*5. Run the project on port 5000 :*
 
 $ meteor run -p5000
 
