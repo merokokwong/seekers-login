@@ -7,6 +7,8 @@ import { getUser } from '/imports/startup/client/actions/userActions.js';
 import { getStock } from '/imports/startup/client/actions/stockActions.js';
 
 import { LineChart, Line, Tooltip, XAxis, YAxis, Legend } from 'recharts';
+import DatePicker from 'material-ui/DatePicker';
+import RaisedButton from 'material-ui/RaisedButton';
 
 const styles = {
 
@@ -18,6 +20,7 @@ const chartOptions = {
     scaleShowVerticalLines: false,
     responsive: false
 };
+const maxDate = new Date();
 
 
 
@@ -38,8 +41,8 @@ const mapDispatchToProps = (dispatch) => {
       getUser: () => {
         dispatch(getUser())
       },
-      getStock: () => {
-        dispatch(getStock())
+      getStock: (fromDate, toDate) => {
+        dispatch(getStock(fromDate, toDate))
       },
     }
 }
@@ -50,15 +53,19 @@ const LogIn = class LogIn extends Component {
         this.state={
           userName: null,
           data: null,
-          date: null
-
+          fromDate: null,
+          toDate: null
       }
     }
 
 
     componentDidMount(){
+      today = new Date();
+      yesterday = new Date(today.setDate(today.getDate() - 1));
+      sevenDaybefore = new Date(today.setDate(today.getDate() - 7));
+
       this.props.getUser();
-      this.props.getStock();
+      this.props.getStock(sevenDaybefore, yesterday);
 
     }
     componentWillReceiveProps(nextProps){
@@ -85,10 +92,23 @@ const LogIn = class LogIn extends Component {
         })
       }
     }
+    changeFromDatePicker(event, date){
+      this.setState({
+        fromDate: date
+      })
+    }
+    changeToDatePicker(event, date){
+      this.setState({
+        toDate: date
+      })
+    }
+    checkStock(){
+      this.props.getStock(this.state.fromDate, this.state.toDate);
+    }
 
 
     render() {
-      console.log(this.state.data);
+      // console.log(this.state.data);
 
       if(!this.props.user){
         return (
@@ -103,30 +123,49 @@ const LogIn = class LogIn extends Component {
               <i className="fa fa-sign-out" aria-hidden="true"></i>
               <span>Log out</span>
             </span>
+            <h1>
+              Welcome {this.props.user.profile.name}
+            </h1>
             <div className="body-container">
-              <h1>
-                Welcome {this.props.user.profile.name}
-              </h1>
+              <div className="dayPickerContainer">
+                <DatePicker hintText="From"
+                  autoOk={true}
+                  maxDate={maxDate}
+                  onChange={(event, date)=>{
+                    this.changeFromDatePicker(event, date)
+                  }}/>
+                <DatePicker hintText="To"
+                  autoOk={true}
+                  maxDate={maxDate}
+                  onChange={(event, date)=>{
+                    this.changeToDatePicker(event, date)
+                  }}/>
+                <RaisedButton label="Check" primary={true}
+                  onClick={()=>{
+                    this.checkStock()
+                  }}/>
+              </div>
 
-              <h3>HSBC History</h3>
-                {this.state.data
-                  ?
-                  <LineChart width={600} height={400} data={this.state.data}
-                     margin={{top: 5, right: 30, left: 20, bottom: 5}}>
-                    <Line type="monotone" dataKey="open" stroke="#8884d8" />
-                    <Line type="monotone" dataKey="close" stroke="#82ca9d" />
-                    <Line type="monotone" dataKey="high" stroke="#ffd700" />
-                    <Line type="monotone" dataKey="low" stroke="#890045" />
-                      <XAxis dataKey="date" padding={{ left: 0, right: 20 }}/>
-                      <YAxis type="number" domain={['dataMin', 'dataMax']}
-                        padding={{ top: 20, bottom: 30 }}/>
-                      <Tooltip/>
-                      <Legend />
-                  </LineChart>
-                  :
-                  null
-
-                }
+              <div className="displayData">
+                <h3>HSBC History</h3>
+                  {this.state.data
+                    ?
+                    <LineChart width={600} height={400} data={this.state.data}
+                       margin={{top: 5, right: 30, left: 20, bottom: 5}}>
+                      <Line type="monotone" dataKey="open" stroke="#8884d8" />
+                      <Line type="monotone" dataKey="close" stroke="#82ca9d" />
+                      <Line type="monotone" dataKey="high" stroke="#ffd700" />
+                      <Line type="monotone" dataKey="low" stroke="#890045" />
+                        <XAxis dataKey="date" padding={{ left: 0, right: 20 }}/>
+                        <YAxis type="number" domain={['dataMin', 'dataMax']}
+                          padding={{ top: 20, bottom: 30 }}/>
+                        <Tooltip/>
+                        <Legend />
+                    </LineChart>
+                    :
+                    null
+                  }
+              </div>
             </div>
 
 

@@ -8,11 +8,12 @@ export function getStockStatus(status, result, error){
     error
   }
 }
-export function getStock(){
+export function getStock(fromDate, toDate){
   return function(dispatch){
+    // console.log(fromDate, toDate);
     dispatch(getStockStatus({status: "PROCESSING"}));
 
-    Meteor.call('get_stock_data', (err, result) => {
+    Meteor.call('get_stock_data', {fromDate, toDate}, (err, result) => {
       if(err){
         dispatch(getStockStatus("ERROR", null, err))
       }else {

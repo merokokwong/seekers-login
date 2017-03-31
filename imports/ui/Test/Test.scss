@@ -5,8 +5,8 @@
   font-weight: 100;
 
   .body-container{
-    @extend %flex-column-container;
-    justify-content: center;
+    @extend %flex-row-container;
+    justify-content: space-around;
     align-items: center;
   }
   .logo{
@@ -27,5 +27,6 @@
     justify-content: center;
     align-items: center;
   }
+
 
 }
